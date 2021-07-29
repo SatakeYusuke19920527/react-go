@@ -2,26 +2,25 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+	"time"
 )
 
-var i5 int = 2000
-
-const Pi = 3.14
-
-func main() {
-	interfaceFunc()
-	fmt.Println(Pi)
+func init() {
+	fmt.Println("init")
 }
 
-func interfaceFunc() {
-	var str string = "100"
-	i, err := strconv.Atoi(str)
-	if err != nil {
-		fmt.Println(err)
-		return
+func main() {
+	go sub()
+	go sub()
+	for {
+		fmt.Println("main loop")
+		time.Sleep(2000 * time.Millisecond)
 	}
+}
 
-	fmt.Println(i)
-	fmt.Printf("s=%T\n", str)
+func sub() {
+	for {
+		fmt.Println("sub loop")
+		time.Sleep(1000 * time.Millisecond)
+	}
 }
