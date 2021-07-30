@@ -8,8 +8,9 @@ function App() {
     getGolangData();
   }, []);
   const getGolangData = async () => {
-    await fetch('http://localhost:3001/').then((res) => {
-      console.log(res);
+    console.log('hello world');
+    await axios.get('/').then((res) => {
+      console.log(res.data);
     });
   };
   return (
