@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
-
+// http://localhost:3001/api/books
 function App() {
   useEffect(() => {
     getGolangData();
   }, []);
   const getGolangData = async () => {
     console.log('hello world');
-    await axios.get('/').then((res) => {
-      console.log(res.data);
+    await axios.get('/api/books').then((res) => {
+      console.log(res);
     });
   };
   return (
