@@ -103,6 +103,11 @@ func main() {
 	books = append(books, Book{ID: "3", Title: "Book Three", Author: &Author{FirstName: "sa", LastName: "ei"}})
 	books = append(books, Book{ID: "4", Title: "Book Four", Author: &Author{FirstName: "yu", LastName: "sd"}})
 	books = append(books, Book{ID: "5", Title: "Book Five", Author: &Author{FirstName: "ki", LastName: "fd"}})
+	books = append(books, Book{ID: "1", Title: "Book one", Author: &Author{FirstName: "Philip", LastName: "Williams"}})
+	books = append(books, Book{ID: "2", Title: "Book Two", Author: &Author{FirstName: "John", LastName: "Johnson"}})
+	books = append(books, Book{ID: "3", Title: "Book Three", Author: &Author{FirstName: "sa", LastName: "ei"}})
+	books = append(books, Book{ID: "4", Title: "Book Four", Author: &Author{FirstName: "yu", LastName: "sd"}})
+	books = append(books, Book{ID: "5", Title: "Book Five", Author: &Author{FirstName: "ki", LastName: "fd"}})
 
 	// Route Hnadlers / Endpoints
 	r.HandleFunc("/api/books", getBooks).Methods("GET")
