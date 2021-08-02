@@ -1,21 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
-func sum(s ...int) int {
-	n := 0
-	for _, v := range s {
-		n += v
+func reciever(name string, c chan int) {
+	for {
+		i, ok := <-c
+		if !ok {
+			break
+		}
+		fmt.Println(name, i)
 	}
-	return n
+	fmt.Println(name + "END")
 }
 
 func main() {
-	m2 := map[string]int{
-		"A": 100,
-		"B": 200,
-		"C": 300,
-	}
-	fmt.Println(m2)
+	ch1 := make(chan int, 2)
+	go reciever("1,goroutin", ch1)
+	go reciever("2,goroutin", ch1)
+	go reciever("3,goroutin", ch1)
 
+	i := 0
+	for i < 100 {
+		ch1 <- i
+		i++
+	}
+	close(ch1)
+	time.Sleep(300 * time.Millisecond)
 }
