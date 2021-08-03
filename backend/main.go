@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -17,6 +18,8 @@ func main() {
 
 	m := getUsers(db, err)
 	fmt.Println(m)
+
+	insertData(db, err, m)
 
 }
 
@@ -37,6 +40,18 @@ func getUsers(db *sql.DB, err error) map[int]string {
 		m[id] = name
 	}
 	return m
+}
+
+func insertData(db *sql.DB, err error, m map[int]string) {
+
+	fmt.Println("----- Exec -----")
+	ins, err := db.Prepare("INSERT INTO test (id,name) VALUES(?,?)")
+	if err != nil {
+		log.Fatal(err)
+	}
+	id := len(m) + 1
+	name := strconv.Itoa(id) + "satake"
+	ins.Exec(id, name)
 }
 
 func checkError(err error) {
