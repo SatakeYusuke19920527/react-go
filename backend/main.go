@@ -9,17 +9,62 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func main() {
-	db, err := sql.Open("mysql", "")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
+type T struct {
+	User
+}
 
-	m := getUsers(db, err)
+type User struct {
+	Name string
+	Age  int
+}
+
+type MyInt int
+
+func NewUser(name string, age int) *User {
+	return &User{Name: name, Age: age}
+}
+
+func (u *User) SetName() {
+	u.Name = "A"
+}
+
+type Users []*User
+
+func main() {
+
+	m := map[int]User{
+		1: {"user1", 29},
+		2: {"user2", 30},
+		3: {"user3", 31},
+	}
+
 	fmt.Println(m)
 
-	insertData(db, err, m)
+	m2 := map[User]string{
+		{"user1", 29}: "tokyo",
+		{"user2", 30}: "osaka",
+		{"user3", 31}: "la",
+	}
+
+	fmt.Println(m2)
+
+	for k, v := range m2 {
+		fmt.Println(k, v)
+	}
+
+	var myInt MyInt = 100
+
+	fmt.Println(myInt)
+
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer db.Close()
+
+	// m := getUsers(db, err)
+	// fmt.Println(m)
+
+	// insertData(db, err, m)
 
 }
 
