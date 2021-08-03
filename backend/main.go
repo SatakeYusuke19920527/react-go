@@ -1,46 +1,46 @@
 package main
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+	"log"
 
-type User struct {
-	Name string
-	Age  int
-}
-
-func UpdateUser(user User) {
-	user.Name = "update"
-	user.Age = 30
-}
-
-func UpdateUser2(user *User) {
-	user.Name = "update"
-	user.Age = 30
-}
+	_ "github.com/go-sql-driver/mysql"
+)
 
 func main() {
-	var user1 User
-	fmt.Println(user1)
-	user1.Name = "user1"
-	user1.Age = 29
-	fmt.Println(user1)
+	db, err := sql.Open("mysql", "")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
 
-	user2 := User{"user2", 29}
-	fmt.Println(user2)
+	m := getUsers(db, err)
+	fmt.Println(m)
 
-	user3 := User{"user3", 29}
-	fmt.Println(user3)
+}
 
-	user4 := User{"user4", 40}
-	fmt.Println(user4)
+// 全userをget
+func getUsers(db *sql.DB, err error) map[int]string {
+	var (
+		id   int
+		name string
+	)
+	m := make(map[int]string)
+	rows, err := db.Query("SELECT id, name FROM test")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for rows.Next() {
+		err := rows.Scan(&id, &name)
+		checkError(err)
+		m[id] = name
+	}
+	return m
+}
 
-	user5 := new(User)
-	fmt.Println(user5)
-	user6 := &User{}
-	fmt.Println(user6)
-
-	UpdateUser(user3)
-	UpdateUser2(&user4)
-
-	fmt.Println(user3)
-	fmt.Println(user4)
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
