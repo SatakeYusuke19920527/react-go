@@ -8,15 +8,11 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type Sale struct {
-	Id      string
-	OrderId string
-}
-
 func main() {
 	// db取得
 	db := getDB()
 	m := getUsers(db)
+	insertUser(m, db)
 	fmt.Println(m)
 }
 
@@ -53,7 +49,11 @@ func getUsers(db sql.DB) map[int]string {
 }
 
 func insertUser(m map[int]string, db sql.DB) {
-	cmd := "insert into test values(5, 'satyus')"
+	cmd := "insert into test values(6, 'sssyus')"
 	rows, _ := db.Query(cmd)
 	defer rows.Close()
+}
+
+func deleteUser(m map[int]string, db sql.DB) {
+
 }
