@@ -13,11 +13,12 @@ func main() {
 	db := getDB()
 	m := getUsers(db)
 	insertUser(m, db)
+	deleteUser(m, db)
 	fmt.Println(m)
 }
 
 func getDB() sql.DB {
-
+	db, err := sql.Open("postgres", "")
 	if err != nil {
 		log.Fatalln("接続失敗", err)
 	}
@@ -49,11 +50,19 @@ func getUsers(db sql.DB) map[int]string {
 }
 
 func insertUser(m map[int]string, db sql.DB) {
-	cmd := "insert into test values(6, 'sssyus')"
-	rows, _ := db.Query(cmd)
+	num := len(m) + 1
+	uname := "Hello"
+	rows, err := db.Query("insert into test values($1,$2)", num, uname)
+	if err != nil {
+		log.Fatalln("insert失敗", err)
+	}
 	defer rows.Close()
 }
 
 func deleteUser(m map[int]string, db sql.DB) {
-
+	rows, err := db.Query("delete from test where id = $1", len(m))
+	if err != nil {
+		log.Fatalln("insert失敗", err)
+	}
+	defer rows.Close()
 }
