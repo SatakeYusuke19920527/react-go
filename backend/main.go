@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -11,10 +10,11 @@ import (
 func main() {
 	// db取得
 	db := getDB()
-	m := getUsers(db)
-	insertUser(m, db)
-	deleteUser(m, db)
-	fmt.Println(m)
+	// m := getUsers(db)
+	// insertUser(m, db)
+	// deleteUser(m, db)
+	// fmt.Println(m)
+	updateUsers(db)
 }
 
 func getDB() sql.DB {
@@ -24,6 +24,22 @@ func getDB() sql.DB {
 	}
 	defer db.Close()
 	return *db
+}
+
+func updateUsers(db sql.DB) {
+	cmd := "UPDATE test SET name = 'SATAKE1' where id = $1"
+	_, err := db.Exec(cmd, 2)
+	if err != nil {
+		log.Fatalln("update", err)
+	}
+}
+
+func createTable(db sql.DB) {
+	cmd := "CREATE TABLE IF NOT EXISTS persons(id int,name varchar(20))"
+	_, err := db.Exec(cmd)
+	if err != nil {
+		log.Fatalln("createTable失敗", err)
+	}
 }
 
 func getUsers(db sql.DB) map[int]string {
