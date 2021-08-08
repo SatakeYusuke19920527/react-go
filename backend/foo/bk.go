@@ -9,7 +9,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func main() {
+func main2() {
 
 	// db, err := sql.Open("mysql", "root:s29y27a25@/mydb")
 	// if err != nil {
@@ -23,7 +23,7 @@ func main() {
 }
 
 // 全userをget
-func getUsers(db *sql.DB, err error) map[int]string {
+func getUsers2(db *sql.DB, err error) map[int]string {
 	var (
 		id   int
 		name string

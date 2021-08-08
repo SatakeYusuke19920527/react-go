@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/gin-gonic/gin v1.7.2 // indirect
+	github.com/gin-gonic/gin v1.7.3 // indirect
 	github.com/go-delve/delve v1.7.0 // indirect
 	github.com/go-playground/validator/v10 v10.8.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
@@ -24,6 +24,7 @@ require (
 	github.com/ugorji/go v1.2.6 // indirect
 	go.starlark.net v0.0.0-20210602144842-1cdb82c9e17a // indirect
 	golang.org/x/arch v0.0.0-20210727222714-28578f966459 // indirect
+	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
